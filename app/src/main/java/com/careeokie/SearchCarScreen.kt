@@ -3,11 +3,11 @@ package com.careeokie
 import androidx.car.app.CarContext
 import androidx.car.app.Screen
 import androidx.car.app.model.*
-import kotlinx.coroutines.*
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class SearchCarScreen(carContext: CarContext) : Screen(carContext) {
 
-    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var results: List<SearchResult> = emptyList()
     private var isSearching = false
 
@@ -30,7 +30,7 @@ class SearchCarScreen(carContext: CarContext) : Screen(carContext) {
 
         return SearchTemplate.Builder(
             object : SearchTemplate.SearchCallback {
-                override fun onSearchTextChanged(text: String) { /* live search not needed */ }
+                override fun onSearchTextChanged(text: String) {}
                 override fun onSearchSubmitted(text: String) {
                     if (text.isNotBlank()) performSearch(text)
                 }
@@ -45,13 +45,10 @@ class SearchCarScreen(carContext: CarContext) : Screen(carContext) {
     private fun performSearch(query: String) {
         isSearching = true
         invalidate()
-        scope.launch {
-            val r = LyricsRepository.search(query)
-            withContext(Dispatchers.Main) {
-                results = r
-                isSearching = false
-                invalidate()
-            }
+        lifecycleScope.launch {
+            results = LyricsRepository.search(query)
+            isSearching = false
+            invalidate()
         }
     }
 
@@ -59,20 +56,13 @@ class SearchCarScreen(carContext: CarContext) : Screen(carContext) {
         NowPlayingState.track.value = TrackInfo(result.artist, result.title)
         NowPlayingState.lyrics.value = null
         NowPlayingState.currentLineIndex.value = -1
-        scope.launch {
+        lifecycleScope.launch {
             NowPlayingState.isLoading.value = true
             val lyrics = LyricsRepository.fetch(result.artist, result.title)
             NowPlayingState.lyrics.value = lyrics
             NowPlayingState.isLoading.value = false
-            if (lyrics == null) {
-                NowPlayingState.error.value = "Lyrics not found"
-            }
+            if (lyrics == null) NowPlayingState.error.value = "Lyrics not found"
         }
         screenManager.pop()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        scope.cancel()
     }
 }
