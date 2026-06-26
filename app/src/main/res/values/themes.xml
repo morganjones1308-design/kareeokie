@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/cko_accent</item>
+        <item name="colorPrimaryVariant">@color/cko_accent</item>
+        <item name="colorAccent">@color/cko_accent_light</item>
+        <item name="android:windowBackground">@color/cko_bg</item>
+        <item name="android:statusBarColor">@color/cko_bg</item>
+        <item name="android:navigationBarColor">@color/cko_bg</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

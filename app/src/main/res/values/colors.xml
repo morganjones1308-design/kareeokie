@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="cko_bg">#0A0812</color>
+    <color name="cko_surface">#150F22</color>
+    <color name="cko_card">#1E1040</color>
+    <color name="cko_accent">#9D4EDD</color>
+    <color name="cko_accent_light">#C77DFF</color>
+    <color name="cko_border">#2A1F42</color>
+    <!-- White at varying opacities for lyric line hierarchy -->
+    <color name="cko_text_full">#FFFFFFFF</color>
+    <color name="cko_text_next">#8CFFFFFF</color>
+    <color name="cko_text_near">#66FFFFFF</color>
+    <color name="cko_text_far">#47FFFFFF</color>
+    <color name="cko_text_past">#38FFFFFF</color>
+</resources>

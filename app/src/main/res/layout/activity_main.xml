@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cko_bg">
+
+    <!-- Header: logo + search button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="12dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_mic"
+            android:contentDescription="Careeokie" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="careeokie"
+            android:textColor="@color/cko_accent_light"
+            android:textSize="19sp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="-0.02" />
+
+        <ImageButton
+            android:id="@+id/btnSearch"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:src="@drawable/ic_search"
+            android:background="@drawable/bg_pill"
+            android:padding="8dp"
+            android:contentDescription="Search manually" />
+    </LinearLayout>
+
+    <!-- Now playing pill (shown when a song is detected) -->
+    <TextView
+        android:id="@+id/tvSongTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/bg_pill"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:textColor="@color/cko_text_next"
+        android:textSize="12sp"
+        android:maxWidth="280dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:visibility="gone" />
+
+    <!-- No song state -->
+    <TextView
+        android:id="@+id/tvNoSong"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="6dp"
+        android:text="Play something to see lyrics"
+        android:textColor="@color/cko_text_past"
+        android:textSize="13sp"
+        android:visibility="visible" />
+
+    <!-- Loading spinner -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="4dp"
+        android:indeterminateTint="@color/cko_accent"
+        android:visibility="gone" />
+
+    <!-- Error / not found message -->
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#FF6B6B"
+        android:textSize="13sp"
+        android:layout_marginBottom="4dp"
+        android:visibility="gone" />
+
+    <!-- Synced lyrics list (highlighted, line by line) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLyrics"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingTop="16dp"
+        android:paddingBottom="24dp"
+        android:visibility="gone" />
+
+    <!-- Plain text lyrics fallback (no sync data) -->
+    <ScrollView
+        android:id="@+id/scrollLyricsPlain"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvLyricsPlain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/cko_text_next"
+            android:textSize="15sp"
+            android:lineSpacingMultiplier="1.7"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="24dp" />
+    </ScrollView>
+
+    <!-- Notification access banner (shown only when permission not granted) -->
+    <LinearLayout
+        android:id="@+id/layoutPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/cko_surface"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="16dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvPermissionHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Grant Notification Access so Careeokie can detect the song playing"
+            android:textColor="#FFCC00"
+            android:textSize="12sp"
+            android:lineSpacingMultiplier="1.4" />
+
+        <Button
+            android:id="@+id/btnNotificationAccess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Grant Access"
+            android:backgroundTint="@color/cko_accent"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+
+</LinearLayout>
